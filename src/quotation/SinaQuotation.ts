@@ -9,7 +9,10 @@ export default class SinaQuotation extends BaseQuotation {
     return `http://hq.sinajs.cn/rn=${Date.now()}&list=`;
   }
 
-  formatResponseData(data: string[], args: StockOption): Record<string, any> {
+  protected formatResponseData(
+    data: string[],
+    args: StockOption
+  ): Record<string, any> {
     const result: Record<string, any> = {};
     const list = data.join("").replace(/\s/g, "").split(";");
 

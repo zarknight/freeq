@@ -17,7 +17,7 @@ export default abstract class BaseQuotation implements Quotation {
 
   abstract get apiUrl(): string;
 
-  abstract formatResponseData(
+  protected abstract formatResponseData(
     data: string[],
     args: StockOption
   ): Record<string, any>;

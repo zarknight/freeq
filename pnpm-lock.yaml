@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@types/lodash-es': ^4.17.6
   '@types/node': ^18.0.0
   axios: ^0.27.2
   dayjs: ^1.11.3
@@ -9,6 +10,7 @@ specifiers:
   typescript: ^4.7.4
 
 dependencies:
+  '@types/lodash-es': 4.17.6
   '@types/node': 18.0.0
   axios: 0.27.2
   dayjs: 1.11.3
@@ -37,6 +39,16 @@ packages:
     dependencies:
       '@esbuild-kit/core-utils': 2.0.2
       get-tsconfig: 4.1.0
+    dev: false
+
+  /@types/lodash-es/4.17.6:
+    resolution: {integrity: sha512-R+zTeVUKDdfoRxpAryaQNRKk3105Rrgx2CFRClIgRGaqDTdjsm8h6IYA8ir584W3ePzkZfst5xIgDwYrlh9HLg==}
+    dependencies:
+      '@types/lodash': 4.14.182
+    dev: false
+
+  /@types/lodash/4.14.182:
+    resolution: {integrity: sha512-/THyiqyQAP9AfARo4pF+aCGcyiQ94tX/Is2I7HofNRqoYLgN1PBoOWu2/zTA5zMxzP5EFutMtWtGAFRKUe961Q==}
     dev: false
 
   /@types/node/18.0.0:

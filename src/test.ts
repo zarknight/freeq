@@ -9,9 +9,10 @@ async function run() {
   // const res = getStockType('sz100000')
   // const q = use("hk");
   // const q = use("qq");
-  const q = use("sina")
+  // const q = use("sina")
   // const q = use("boc");
-  const res = await q.real(["600008", "688533xx", "688533"], true);
+  const q = use("kday");
+  const res = await q.real(["688312", "688533"], true);
 
   console.log(res);
 }

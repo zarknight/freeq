@@ -11,7 +11,10 @@ export default class TencentQuotation extends BaseQuotation {
     return "http://qt.gtimg.cn/q=";
   }
 
-  formatResponseData(data: string[], args: StockOption): Record<string, any> {
+  protected formatResponseData(
+    data: string[],
+    args: StockOption
+  ): Record<string, any> {
     const result: Record<string, any> = {};
     const list = data.join("").replace(/\s/g, "").split(";");
 
