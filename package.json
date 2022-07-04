@@ -1,4 +1,5 @@
 {
+  "name": "freeq",
   "dependencies": {
     "@types/lodash-es": "^4.17.6",
     "@types/node": "^18.0.0",
