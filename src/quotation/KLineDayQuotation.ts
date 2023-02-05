@@ -25,9 +25,9 @@ export default class KLineDayQuotation extends BaseQuotation {
         const code = args.prefix ? key : key.slice(2);
         const info = value.qfqday || value.get?.("day");
 
-        if (!info) continue;
-
-        result[code] = info;
+        if (info) {
+          result[code] = info;
+        }
       }
     }
 

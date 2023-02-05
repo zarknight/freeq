@@ -74,15 +74,13 @@ export default abstract class BaseQuotation implements Quotation {
   }
 
   protected async getStockByRange(params: string) {
-    const { data } = await http.get(this.apiUrl + params, {
-      headers: this.getHeaders(),
-    });
+    const url: string = this.apiUrl + params;
+    const { data } = await http.get(url, { headers: this.getHeaders() });
     return data;
   }
 
   protected async fetchStockData(stockList: string[]): Promise<string[]> {
-    const promises = stockList.map((item) => this.getStockByRange(item));
-    return Promise.all(promises);
+    return Promise.all(stockList.map((item) => this.getStockByRange(item)));
   }
 
   protected getHeaders(): Record<string, string> {
