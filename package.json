@@ -1,12 +1,20 @@
 {
   "name": "freeq",
+  "version": "1.0.0",
+  "description": "Quotation APIs for chinese stock market",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "esno src/demo.ts",
+    "build": "tsc"
+  },
   "dependencies": {
-    "@types/lodash-es": "^4.17.6",
-    "@types/node": "^18.0.0",
-    "axios": "^0.27.2",
-    "dayjs": "^1.11.3",
-    "esno": "^0.16.3",
-    "iconv-lite": "^0.6.3",
-    "typescript": "^4.7.4"
+    "axios": "^1.7.9",
+    "dayjs": "^1.11.13",
+    "iconv-lite": "^0.6.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "esno": "^4.8.0",
+    "typescript": "^5.7.2"
   }
 }

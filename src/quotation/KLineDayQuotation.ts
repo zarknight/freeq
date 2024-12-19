@@ -1,5 +1,14 @@
 import { getStockType } from "../utils/helpers";
-import BaseQuotation, { StockOption } from "./BaseQuotation";
+import BaseQuotation, { StockOption } from "./base/BaseQuotation";
+
+export type KLineDayInfo = [
+  number, // 0: 日期
+  number, // 1: 开盘价
+  number, // 2: 收盘价
+  number, // 3: 最高价
+  number, // 4: 最低价
+  number // 5: 成交量
+];
 
 export default class KLineDayQuotation extends BaseQuotation {
   pageSize: number = 1;
@@ -16,14 +25,14 @@ export default class KLineDayQuotation extends BaseQuotation {
     data: string[],
     args: StockOption
   ): Record<string, any> {
-    const result: Record<string, any> = {};
+    const result: Record<string, KLineDayInfo[]> = {};
 
     for (const item of data) {
       const res = JSON.parse(item.substring(item.indexOf("=") + 1));
 
       for (const [key, value] of Object.entries<any>(res.data)) {
         const code = args.prefix ? key : key.slice(2);
-        const info = value.qfqday || value.get?.("day");
+        const info = (value.qfqday || value.get?.("day")) as KLineDayInfo[];
 
         if (info) {
           result[code] = info;

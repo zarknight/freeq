@@ -1,53 +1,66 @@
 import http from "../utils/request";
-import Quotation from "./Quotation";
+import Quotation from "./base/Quotation";
 
 const reg = /<td.*?>(.*?)<\/td>/gi;
 
 export type ExchangeInfo = {
+  // 货币名称
   name: string;
+
+  // 现汇买入价
   buy: number;
+
+  // 现钞卖出价
   sell: number;
 };
 
+/**
+ * 中国银行外汇牌价（汇率查询）
+ */
 export default class BocQuotation implements Quotation {
   get apiUrl(): string {
     return "https://www.boc.cn/sourcedb/whpj/index.html";
   }
 
   /**
-   * 获取中行最新汇率列表
+   * 获取最新汇率列表
    */
   async list(): Promise<ExchangeInfo[]> {
-    const { data } = await http.get<string>(this.apiUrl);
-    const start = data.indexOf(
-      '<table cellpadding="0" align="left" cellspacing="0" width="100%">'
-    );
-    const text = data.substring(start);
     const list: ExchangeInfo[] = [];
 
-    let matches;
-    let i = 0;
-    let group: ExchangeInfo;
+    try {
+      const { data } = await http.get<string>(this.apiUrl);
+      const start = data.indexOf(
+        '<table cellpadding="0" align="left" cellspacing="0" width="100%">'
+      );
+      const text = data.substring(start);
 
-    while ((matches = reg.exec(text))) {
-      const content = matches[1];
-      const mod = i % 8;
+      let matches;
+      let i = 0;
+      let info: ExchangeInfo;
 
-      if (mod === 0) {
-        group = { name: content } as ExchangeInfo;
+      while ((matches = reg.exec(text))) {
+        const content = matches[1];
+        const mod = i % 8;
+
+        if (mod === 0) {
+          info = { name: content } as ExchangeInfo;
+        }
+
+        if (mod === 1) {
+          info!.buy = parseFloat(content || "0");
+        } else if (mod === 3) {
+          info!.sell = parseFloat(content || "0");
+        }
+
+        if (mod === 7) {
+          list.push(info!);
+        }
+
+        i++;
       }
-
-      if (mod === 1) {
-        group!.buy = parseFloat(content || "0");
-      } else if (mod === 3) {
-        group!.sell = parseFloat(content || "0");
-      }
-
-      if (mod === 7) {
-        list.push(group!);
-      }
-
-      i++;
+    } catch (e) {
+      console.error(e);
     }
 
     return list;

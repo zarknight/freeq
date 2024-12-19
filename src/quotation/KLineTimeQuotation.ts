@@ -1,5 +1,21 @@
 import { getStockType } from "../utils/helpers";
-import BaseQuotation, { StockOption } from "./BaseQuotation";
+import BaseQuotation, { StockOption } from "./base/BaseQuotation";
+
+export type SequenceItemInfo = {
+  // 成交时间
+  time: string;
+  // 成交价格
+  price: number;
+  // 成交量
+  volume: number;
+};
+
+export type KLineTimeQuotationData = {
+  // 日期
+  date: string;
+  // 分时数据
+  sequence: SequenceItemInfo[];
+};
 
 export default class KLineTimeQuotation extends BaseQuotation {
   pageSize: number = 1;
@@ -32,7 +48,7 @@ export default class KLineTimeQuotation extends BaseQuotation {
     data: string[],
     args: StockOption
   ): Record<string, any> {
-    const result: Record<string, any> = {};
+    const result: Record<string, KLineTimeQuotationData> = {};
 
     for (const item of data) {
       const [rawCode, value] = item.split("#");
@@ -41,18 +57,17 @@ export default class KLineTimeQuotation extends BaseQuotation {
       const fullCode = rawCode.slice(0, -3);
       const code = args.prefix ? fullCode : fullCode.slice(2);
 
-      const sequence: {
-        time: string;
-        price: number;
-        volume: number;
-      }[] = [];
+      const sequence: SequenceItemInfo[] = [];
 
       for (let i = 2; i < info.length; i++) {
         const arr = info[i].split(" ");
 
         sequence.push({
+          // 成交时间
           time: arr[0],
+          // 成交价格
           price: parseFloat(arr[1]),
+          // 成交量
           volume: parseInt(arr[2]),
         });
       }
