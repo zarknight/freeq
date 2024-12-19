@@ -23,7 +23,7 @@ export default class BocQuotation implements Quotation {
   }
 
   /**
-   * 获取最新汇率列表
+   * 获取最新100外币换算人民币汇率列表
    */
   async list(): Promise<ExchangeInfo[]> {
     const list: ExchangeInfo[] = [];

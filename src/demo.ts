@@ -1,17 +1,14 @@
-// import HKQuotation from "./quotation/HKQuotation";
-// import SinaQuotation from "./quotation/SinaQuotation";
-// import TencentQuotation from "./quotation/TencentQuotation";
-// import { getStockCodes, getStockType, use } from ".";
+import { use } from ".";
 
-// async function run() {
-//   const q = use("hk");
-//   const q = use("qq");
-//   const q = use("sina");
-//   const q = use("boc");
-//   const q = use("kday");
-//   const q = use("ktime");
-//   const res = await q.real(["688312"], true);
-//   console.log(res);
-// }
+async function run() {
+  //   const q = use("hk");
+  //   const q = use("qq");
+  //   const q = use("sina");
+  const q = use("boc");
+  //   const q = use("kday");
+  //   const q = use("ktime");
+  const res = await q.real(["美元"], true);
+  console.log(res);
+}
 
-// run();
+run();
