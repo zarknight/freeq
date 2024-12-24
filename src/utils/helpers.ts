@@ -81,3 +81,51 @@ export function parseFloatSafe(value: string): number | null {
   } catch (e) {}
   return null;
 }
+
+export type StockCodeName = {
+  type: string;
+  code: string;
+  fullCode: string;
+  name: string;
+};
+
+export async function getStockCodeName(
+  keyword: string
+): Promise<StockCodeName | null> {
+  const resp = await fetch(
+    `https://suggest3.sinajs.cn/suggest/type=11,12,13,14,15&key=${keyword}`,
+    {
+      headers: {
+        "Accept-Encoding": "gzip, deflate, sdch",
+        "User-Agent":
+          "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.100 Safari/537.36",
+        Referer: "http://finance.sina.com.cn/",
+      },
+    }
+  );
+
+  // 中文乱码问题
+  const buffer = await resp.arrayBuffer();
+  const decoder = new TextDecoder("gbk");
+  const text = decoder.decode(new DataView(buffer));
+
+  const regValidData: RegExp = /var(.*?)=\"(.*?)\"/;
+  const matched = regValidData.exec(text);
+
+  if (matched) {
+    const item = matched[2].split(";")?.[0] || "";
+
+    if (item) {
+      const list = item.split(",");
+
+      return {
+        type: list[1],
+        code: list[2],
+        fullCode: list[3],
+        name: list[4],
+      };
+    }
+  }
+
+  return null;
+}
