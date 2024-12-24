@@ -1,5 +1,4 @@
 import { getStockCodes, getStockType } from "../../utils/helpers";
-import http from "../../utils/request";
 import Quotation from "./Quotation";
 
 export type StockOption = {
@@ -88,8 +87,10 @@ export default abstract class BaseQuotation implements Quotation {
    */
   protected async getStockByRange(params: string) {
     const url: string = this.apiUrl + params;
-    const { data } = await http.get(url, { headers: this.getHeaders() });
-    return data;
+    const resp = await fetch(url, { headers: this.getHeaders() });
+    const buffer = await resp.arrayBuffer();
+    const decoder = new TextDecoder("gbk");
+    return decoder.decode(new DataView(buffer));
   }
 
   /**

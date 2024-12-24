@@ -1,4 +1,3 @@
-import http from "../utils/request";
 import Quotation from "./base/Quotation";
 
 const reg = /<td.*?>(.*?)<\/td>/gi;
@@ -29,7 +28,8 @@ export default class BocQuotation implements Quotation {
     const list: ExchangeInfo[] = [];
 
     try {
-      const { data } = await http.get<string>(this.apiUrl);
+      const resp = await fetch(this.apiUrl);
+      const data = await resp.text();
       const start = data.indexOf(
         '<table cellpadding="0" align="left" cellspacing="0" width="100%">'
       );

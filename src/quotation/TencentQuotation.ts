@@ -85,31 +85,44 @@ export default class TencentQuotation extends BaseQuotation {
           ask5: parseFloat(info[27]),
           // 卖五申请股数
           ask5_volume: parseInt(info[28]) * 100,
-          最近逐笔成交: info[29],
+          // 最近逐笔成交
+          latest_transaction_details: info[29],
           datetime: dayjs(info[30]).format("YYYY-MM-DD HH:mm:ss"),
-          涨跌: parseFloat(info[31]),
-          涨跌百分比: parseFloat(info[32]),
+          // 涨跌
+          change: parseFloat(info[31]),
+          // 涨跌百分比
+          change_Percentage: parseFloat(info[32]),
           high: parseFloat(info[33]),
           low: parseFloat(info[34]),
-          "价格/成交量(手)/成交额": info[35],
-          "成交量(手)": parseInt(info[36]) * 100,
-          "成交额(万)": parseFloat(info[37]) * 10000,
+          // 成交量(手)
+          volume_lots: parseInt(info[36]) * 100,
+          // 成交额(万)
+          turnover_ten_thousand: parseFloat(info[37]) * 10000,
           turnover: parseFloatSafe(info[38]),
+          // 市盈率
           PE: parseFloatSafe(info[39]),
-          未知值: info[40],
-          high_2: parseFloat(info[41]), // 意义不明
-          low_2: parseFloat(info[42]), // 意义不明
-          振幅: parseFloat(info[43]),
-          流通市值: parseFloatSafe(info[44]),
-          总市值: parseFloatSafe(info[45]),
+          // 振幅
+          amplitude: parseFloat(info[43]),
+          // 流通市值
+          circulating_market_value: parseFloatSafe(info[44]),
+          // 总市值
+          total_market_value: parseFloatSafe(info[45]),
+          // 市净率
           PB: parseFloat(info[46]),
-          涨停价: parseFloat(info[47]),
-          跌停价: parseFloat(info[48]),
-          量比: parseFloatSafe(info[49]),
-          委差: parseFloatSafe(info[50]),
-          均价: parseFloatSafe(info[51]),
-          动态市盈: parseFloatSafe(info[52]),
-          静态市盈: parseFloatSafe(info[53]),
+          // 涨停价
+          limit_up_price: parseFloat(info[47]),
+          // 跌停价
+          limit_down_price: parseFloat(info[48]),
+          // 量比
+          volume_ratio: parseFloatSafe(info[49]),
+          // 委差
+          order_difference: parseFloatSafe(info[50]),
+          // 均价
+          average_price: parseFloatSafe(info[51]),
+          // 动态市盈
+          dynamic_PE: parseFloatSafe(info[52]),
+          // 静态市盈
+          static_PE: parseFloatSafe(info[53]),
         };
       }
     }

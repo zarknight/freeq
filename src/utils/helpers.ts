@@ -1,6 +1,5 @@
 import { readFile, writeFile } from "fs/promises";
 import path from "path";
-import http from "./request";
 
 const FILE_PATH = path.join(__dirname, "stock_list.json");
 
@@ -30,7 +29,8 @@ export type StockType = "sh" | "sz" | "zz";
 export async function cacheStockCodes(): Promise<string[]> {
   // TODO: 该地址已不能用
   const url: string = "http://www.shdjt.com/js/lib/astock.js";
-  const { data } = await http.get<string>(url);
+  const resp = await fetch(url);
+  const data = await resp.text();
 
   let matches: RegExpExecArray | null;
   const codes: string[] = [];
