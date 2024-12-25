@@ -90,10 +90,17 @@ export type StockCodeName = {
 };
 
 export async function getStockCodeName(
-  keyword: string
+  keyword: string,
+  type: "cn" | "hk" = "cn"
 ): Promise<StockCodeName | null> {
+  let pType: string = "11,12,13,14,15";
+
+  if (type === "hk") {
+    pType = "31";
+  }
+
   const resp = await fetch(
-    `https://suggest3.sinajs.cn/suggest/type=11,12,13,14,15&key=${keyword}`,
+    `https://suggest3.sinajs.cn/suggest/type=${pType}&key=${keyword}`,
     {
       headers: {
         "Accept-Encoding": "gzip, deflate, sdch",
